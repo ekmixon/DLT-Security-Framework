@@ -55,9 +55,7 @@ for row in ws_IRelationships.iter_rows():
                     # strip the starting space from the tag because, space, entry, for, tags
                     tag_entry=tag_entry.lstrip(' ')
                     if tag_entry not in mermaid_files:
-                        mermaid_files[tag_entry]={}
-                        mermaid_files[tag_entry]["name"]=tag_entry
-                        mermaid_files[tag_entry]["strings"]=[]
+                        mermaid_files[tag_entry] = {"name": tag_entry, "strings": []}
                 cell_count = cell_count +1
             elif cell_count == 4:
                 # Strip all spaces out for named objecty in mermaid
@@ -78,11 +76,11 @@ for row in ws_IRelationships.iter_rows():
 # Put the data into files
 #
 for key,value in mermaid_files.items():
-    outputfilename=key + ".md"
+    outputfilename = f"{key}.md"
     mermaid_diagram_name=key.replace(" ", "") + "(" + key.replace(" ", "") + ")"
     with open(outputfilename, "w") as outputfile:
-        outputfile.write("```mermaid" + os.linesep)
-        outputfile.write("graph LR" + os.linesep)
+        outputfile.write(f"```mermaid{os.linesep}")
+        outputfile.write(f"graph LR{os.linesep}")
         outputfile.write(mermaid_diagram_name + os.linesep)
         for mermaid_string_output in value["strings"]:
             outputfile.write(mermaid_string_output + os.linesep)
